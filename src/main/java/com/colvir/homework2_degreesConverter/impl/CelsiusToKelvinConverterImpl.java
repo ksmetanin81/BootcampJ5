@@ -8,10 +8,10 @@ public class CelsiusToKelvinConverterImpl implements TemperatureConverter {
 
     @Override
     public double convert(double degrees, boolean reverse) {
-        if (!reverse) {
-            return degrees + 273;
-        } else {
+        if (reverse) {
             return degrees - 273;
+        } else {
+            return degrees + 273;
         }
     }
 }

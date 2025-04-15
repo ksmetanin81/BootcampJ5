@@ -8,10 +8,10 @@ public class CelsiusToFahrenheitConverterImpl implements TemperatureConverter {
 
     @Override
     public double convert(double degrees, boolean reverse) {
-        if (!reverse) {
-            return degrees * 9 / 5 + 32;
-        } else {
+        if (reverse) {
             return (degrees - 32) * 5 / 9;
+        } else {
+            return degrees * 9 / 5 + 32;
         }
     }
 }
