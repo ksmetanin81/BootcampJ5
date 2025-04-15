@@ -1,10 +1,10 @@
 package com.colvir.homework2_degreesConverter.impl;
 
-import com.colvir.homework2_degreesConverter.CelsiusToKelvinConverter;
+import com.colvir.homework2_degreesConverter.TemperatureConverter;
 import org.springframework.stereotype.Component;
 
-@Component
-public class CelsiusToKelvinConverterImpl implements CelsiusToKelvinConverter {
+@Component("CelsiusToKelvin")
+public class CelsiusToKelvinConverterImpl implements TemperatureConverter {
 
     @Override
     public double convert(double degrees, boolean reverse) {
