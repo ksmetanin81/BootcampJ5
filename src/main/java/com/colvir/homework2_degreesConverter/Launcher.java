@@ -1,10 +1,12 @@
 package com.colvir.homework2_degreesConverter;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
+@SpringBootApplication
 public class Launcher {
 
     public static void main(String[] args) {
@@ -33,7 +35,7 @@ public class Launcher {
         }
 
         if (!dataError) {
-            try (ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class)) {
+            try (ConfigurableApplicationContext applicationContext = SpringApplication.run(Launcher.class, args)) {
                 double resultDegrees = applicationContext.getBean(TemperatureConvertService.class).convert(scaleFrom, scaleTo, degrees);
                 System.out.printf("%s%s = %s%s", degrees, scaleFrom, resultDegrees, scaleTo);
             }
