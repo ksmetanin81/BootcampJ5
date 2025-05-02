@@ -1,0 +1,7 @@
+spring:
+  main.banner-mode: off
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: com.colvir.homework5_taskDictionary
