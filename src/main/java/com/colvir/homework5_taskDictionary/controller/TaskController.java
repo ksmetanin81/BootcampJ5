@@ -30,13 +30,11 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<TaskDto> getTasks() {
         return taskService.getTasks();
     }
 
     @GetMapping("/today")
-    @ResponseStatus(HttpStatus.OK)
     public List<TaskDto> getTasksToday() {
         return taskService.getTasksByDate(LocalDate.now());
     }
@@ -47,7 +45,6 @@ public class TaskController {
     }
 
     @GetMapping("/onDate/{date}")
-    @ResponseStatus(HttpStatus.OK)
     public List<TaskDto> getTasksOnDate(@PathVariable LocalDate date) {
         return taskService.getTasksByDate(date);
     }
@@ -65,7 +62,6 @@ public class TaskController {
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody @Valid TaskDto taskDto) {
         taskService.getTaskById(taskDto.getId()).ifPresentOrElse(it -> taskService.save(taskDto), () -> {
             throw new NoSuchElementException("Task not found");
