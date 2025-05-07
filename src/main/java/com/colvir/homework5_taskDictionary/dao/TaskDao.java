@@ -1,31 +1,19 @@
 package com.colvir.homework5_taskDictionary.dao;
 
 import com.colvir.homework5_taskDictionary.model.Task;
-import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.stereotype.Repository;
 
-import java.time.ZoneId;
+import java.time.LocalDate;
+import java.util.List;
 
-@Repository
-@RequiredArgsConstructor
-public class TaskDao {
+public interface TaskDao {
 
-    private final JdbcOperations jdbcTemplate;
+    List<Task> findAll();
 
-    public Task findById(long id) {
-        return jdbcTemplate.queryForObject(
-                """
-                        select id, date, name, description
-                        from task
-                        where id = ?
-                        """, (rs, rowNum) -> {
-                    Task task = new Task();
-                    task.setId(rs.getLong("id"));
-                    task.setDate(rs.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    task.setName(rs.getString("name"));
-                    task.setDescription(rs.getString("description"));
-                    return task;
-                }, id );
-    }
+    Task findById(Long id);
+
+    List<Task> findByDate(LocalDate date);
+
+    void save(Task task);
+
+    boolean delete(Long id);
 }

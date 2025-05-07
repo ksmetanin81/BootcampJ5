@@ -8,17 +8,20 @@ services:
     depends_on:
       - db
     ports:
-      - '8090:8080'
+      - '8080:8080'
 
   db:
     image: postgres:17.4-alpine
     container_name: postgres_17
     restart: always
     environment:
-      - POSTGRES_DB=colvir
-      - POSTGRES_USER=colvir
-      - POSTGRES_PASSWORD=colvir
+      - POSTGRES_DB=taskDictionary
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=pass
     ports:
       - '5432:5432'
     volumes:
       - ./postgres-volume:/var/lib/postgresql/data
+
+volumes:
+  postgres-volume:
