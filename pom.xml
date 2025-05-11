@@ -20,7 +20,6 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <mapstruct.defaulComponentModel>spring</mapstruct.defaulComponentModel>
         <springdoc-openapi-ui.version>2.8.6</springdoc-openapi-ui.version>
-
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
     </properties>
 
@@ -33,6 +32,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -62,6 +71,11 @@
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -69,6 +83,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.colvir.homework5_taskDictionary.Launcher</mainClass>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
