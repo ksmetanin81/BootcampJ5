@@ -5,6 +5,7 @@ import com.colvir.homework5_taskDictionary.model.Task;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -12,9 +13,18 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class TaskJDBCDao implements TaskDao {
+public class TaskJdbcDao implements TaskDao {
 
     private final JdbcOperations jdbcTemplate;
+
+    private final RowMapper<Task> rowMapper = (resultSet, rowNum) -> {
+        Task task = new Task();
+        task.setId(resultSet.getLong("id"));
+        task.setDate(resultSet.getDate("date").toLocalDate());
+        task.setName(resultSet.getString("name"));
+        task.setDescription(resultSet.getString("description"));
+        return task;
+    };
 
     @Override
     public List<Task> findAll() {
@@ -22,14 +32,7 @@ public class TaskJDBCDao implements TaskDao {
                 select t.id, t.date, t.name, t.description
                 from tasks t
                 order by t.id
-                """, (resultSet, rowNum) -> {
-            Task task = new Task();
-            task.setId(resultSet.getLong("id"));
-            task.setDate(resultSet.getDate("date").toLocalDate());
-            task.setName(resultSet.getString("name"));
-            task.setDescription(resultSet.getString("description"));
-            return task;
-        });
+                """, rowMapper);
     }
 
     @Override
@@ -39,14 +42,7 @@ public class TaskJDBCDao implements TaskDao {
                         select t.id, t.date, t.name, t.description
                         from tasks t
                         where t.id = ?
-                        """, (resultSet, rowNum) -> {
-                    Task task = new Task();
-                    task.setId(resultSet.getLong("id"));
-                    task.setDate(resultSet.getDate("date").toLocalDate());
-                    task.setName(resultSet.getString("name"));
-                    task.setDescription(resultSet.getString("description"));
-                    return task;
-                }, id));
+                        """, rowMapper, id));
     }
 
     @Override
@@ -56,14 +52,7 @@ public class TaskJDBCDao implements TaskDao {
                 from tasks t
                 where t.date = ?
                 order by t.id
-                """, (resultSet, rowNum) -> {
-            Task task = new Task();
-            task.setId(resultSet.getLong("id"));
-            task.setDate(resultSet.getDate("date").toLocalDate());
-            task.setName(resultSet.getString("name"));
-            task.setDescription(resultSet.getString("description"));
-            return task;
-        }, date);
+                """, rowMapper, date);
     }
 
     @Override

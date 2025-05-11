@@ -14,7 +14,7 @@ import java.util.List;
 @Primary
 @Repository
 @AllArgsConstructor
-public class TaskJPADao implements TaskDao {
+public class TaskJpaDao implements TaskDao {
 
     private final EntityManager entityManager;
 
