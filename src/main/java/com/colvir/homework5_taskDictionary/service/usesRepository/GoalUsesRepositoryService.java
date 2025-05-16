@@ -22,7 +22,6 @@ import java.util.Optional;
 public class GoalUsesRepositoryService implements GoalService {
 
     private final GoalRepository goalRepository;
-    ;
     private final GoalMapper goalMapper;
 
     @Setter(onMethod_ = {@Autowired, @Lazy})
