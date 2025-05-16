@@ -9,5 +9,5 @@ public interface TaskMapper {
 
     TaskDto toDto(Task task);
 
-    Task toEntity(TaskDto task);
+    Task toEntity(TaskDto taskDto);
 }

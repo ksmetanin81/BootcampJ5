@@ -33,6 +33,16 @@ public class TaskJpaDao implements TaskDao {
         return entityManager.createQuery("select t from Task t where t.date = :date order by t.id", Task.class).setParameter("date", date).getResultList();
     }
 
+    @Override
+    public List<Task> findByGoalId(Long goalId) {
+        return entityManager.createQuery("""
+                select t from Task t
+                join fetch t.goal g
+                where g.id = :goalId
+                order by t.id
+                """, Task.class).setParameter("goalId", goalId).getResultList();
+    }
+
     @Transactional
     @Override
     public void save(Task task) {
