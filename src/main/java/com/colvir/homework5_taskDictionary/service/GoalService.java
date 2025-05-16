@@ -1,22 +1,20 @@
 package com.colvir.homework5_taskDictionary.service;
 
+import com.colvir.homework5_taskDictionary.dto.GoalDto;
 import com.colvir.homework5_taskDictionary.dto.TaskDto;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface TaskService {
+public interface GoalService {
 
-    List<TaskDto> getTasks();
+    List<GoalDto> getGoals();
 
-    Optional<TaskDto> getTaskById(Long id);
-
-    List<TaskDto> getTasksByDate(LocalDate date);
+    Optional<GoalDto> getGoalById(Long id);
 
     List<TaskDto> getTasksByGoalId(Long goalId);
 
-    void save(TaskDto taskDto);
+    void save(GoalDto goalDto);
 
     boolean delete(Long id);
 }
