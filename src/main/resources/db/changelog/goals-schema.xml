@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="goals-schema" author="Konstantin Smetanin">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="goals"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="goals">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="goals_pk"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="motivation" type="varchar(255)"/>
+            <column name="resources" type="varchar(255)"/>
+            <column name="deadline" type="date"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

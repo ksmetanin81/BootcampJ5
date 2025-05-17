@@ -10,6 +10,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  liquibase:
+    change-log: 'classpath:db/changelog/changeLog.xml'
 
 springdoc:
   swagger-ui:

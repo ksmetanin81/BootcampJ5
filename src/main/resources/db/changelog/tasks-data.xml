@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="tasks-data" author="Konstantin Smetanin">
+
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0"><![CDATA[
+                select count(*)
+                from tasks
+                where 1 = 1
+                ]]></sqlCheck>
+        </preConditions>
+
+        <insert tableName="tasks">
+            <column name="date" value="now()"/>
+            <column name="name" value="Выполнить домашнюю работу Spring Data JPA"/>
+            <column name="description" value="Предварительно пересмотреть запись лекции"/>
+            <column name="goal_id" value="1"/>
+        </insert>
+
+        <insert tableName="tasks">
+            <column name="date" value="now()"/>
+            <column name="name" value="Выполнить домашнюю работу Liquibase"/>
+            <column name="description" value="Изучить материалы по теме"/>
+            <column name="goal_id" value="1"/>
+        </insert>
+
+        <insert tableName="tasks">
+            <column name="date" value="now()"/>
+            <column name="name" value="Изучить опыт предшественников"/>
+            <column name="description" value=""/>
+            <column name="goal_id" value="2"/>
+        </insert>
+
+        <insert tableName="tasks">
+            <column name="date" value="01.01.2027"/>
+            <column name="name" value="Освоить методы подчинения"/>
+            <column name="description" value=""/>
+            <column name="goal_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
