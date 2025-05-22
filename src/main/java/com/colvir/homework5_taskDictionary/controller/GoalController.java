@@ -1,7 +1,6 @@
 package com.colvir.homework5_taskDictionary.controller;
 
 import com.colvir.homework5_taskDictionary.dto.GoalDto;
-import com.colvir.homework5_taskDictionary.dto.TaskDto;
 import com.colvir.homework5_taskDictionary.service.GoalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,18 +22,13 @@ public class GoalController {
     private final GoalService goalService;
 
     @GetMapping
-    public List<GoalDto> geyGoals() {
+    public List<GoalDto> getGoals() {
         return goalService.getGoals();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GoalDto> getGoalById(@PathVariable Long id) {
         return goalService.getGoalById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/{id}/tasks")
-    public List<TaskDto> getTasksByGoalId(@PathVariable Long id) {
-        return goalService.getTasksByGoalId(id);
     }
 
     @PostMapping
@@ -58,6 +52,6 @@ public class GoalController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        return goalService.delete(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return goalService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

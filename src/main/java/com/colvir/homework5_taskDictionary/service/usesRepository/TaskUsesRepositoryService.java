@@ -10,6 +10,7 @@ import com.colvir.homework5_taskDictionary.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,31 +42,37 @@ public class TaskUsesRepositoryService implements TaskService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasks() {
         return taskRepository.findAll().stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<TaskDto> getTaskById(Long id) {
         return taskRepository.findById(id).map(this::mapDto);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasksByDate(LocalDate date) {
         return taskRepository.findByDate(date).stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasksByGoalId(Long goalId) {
         return taskRepository.findByGoalId(goalId).stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional
     public void save(TaskDto taskDto) {
         taskRepository.save(mapEntity(taskDto));
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
         if (taskRepository.findById(id).isPresent()) {
             taskRepository.deleteById(id);
