@@ -1,6 +1,7 @@
 package com.colvir.homework5_taskDictionary.dao.JDBC;
 
 import com.colvir.homework5_taskDictionary.dao.TaskDao;
+import com.colvir.homework5_taskDictionary.model.Goal;
 import com.colvir.homework5_taskDictionary.model.Task;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -23,14 +24,26 @@ public class TaskJdbcDao implements TaskDao {
         task.setDate(resultSet.getDate("date").toLocalDate());
         task.setName(resultSet.getString("name"));
         task.setDescription(resultSet.getString("description"));
+
+        Goal goal = new Goal();
+        goal.setId(resultSet.getLong("goal_id"));
+        goal.setName(resultSet.getString("goal_name"));
+        goal.setMotivation(resultSet.getString("motivation"));
+        goal.setResources(resultSet.getString("resources"));
+        goal.setDeadline(resultSet.getDate("deadline").toLocalDate());
+        goal.setDescription(resultSet.getString("goal_description"));
+        task.setGoal(goal);
+
         return task;
     };
 
     @Override
     public List<Task> findAll() {
         return jdbcTemplate.query("""
-                select t.id, t.date, t.name, t.description
+                select t.id, t.date, t.name, t.description, t.goal_id,
+                       g.name as goal_name, g.motivation, g.resources, g.deadline, g.description as goal_description
                 from tasks t
+                join goals g on g.id = t.goal_id
                 order by t.id
                 """, rowMapper);
     }
@@ -39,8 +52,10 @@ public class TaskJdbcDao implements TaskDao {
     public Task findById(Long id) {
         return DataAccessUtils.singleResult(
                 jdbcTemplate.query("""
-                        select t.id, t.date, t.name, t.description
+                        select t.id, t.date, t.name, t.description, t.goal_id,
+                               g.name as goal_name, g.motivation, g.resources, g.deadline, g.description as goal_description
                         from tasks t
+                        join goals g on g.id = t.goal_id
                         where t.id = ?
                         """, rowMapper, id));
     }
@@ -48,25 +63,39 @@ public class TaskJdbcDao implements TaskDao {
     @Override
     public List<Task> findByDate(LocalDate date) {
         return jdbcTemplate.query("""
-                select t.id, t.date, t.name, t.description
+                select t.id, t.date, t.name, t.description, t.goal_id,
+                       g.name as goal_name, g.motivation, g.resources, g.deadline, g.description as goal_description
                 from tasks t
+                join goals g on g.id = t.goal_id
                 where t.date = ?
                 order by t.id
                 """, rowMapper, date);
     }
 
     @Override
+    public List<Task> findByGoalId(Long goalId) {
+        return jdbcTemplate.query("""
+                select t.id, t.date, t.name, t.description, t.goal_id,
+                       g.name as goal_name, g.motivation, g.resources, g.deadline, g.description as goal_description
+                from tasks t
+                join goals g on g.id = t.goal_id
+                where g.id = ?
+                order by t.id
+                """, rowMapper, goalId);
+    }
+
+    @Override
     public void save(Task task) {
         if (task.getId() == null) {
             jdbcTemplate.update("""
-                        insert into tasks(date, name, description)
-                        values (?, ?, ?)
-                    """, task.getDate(), task.getName(), task.getDescription());
+                        insert into tasks(date, name, description, goal_id)
+                        values (?, ?, ?, ?)
+                    """, task.getDate(), task.getName(), task.getDescription(), task.getGoal().getId());
         } else {
             jdbcTemplate.update("""
-                        update tasks set date = ?, name = ?, description = ?
+                        update tasks set date = ?, name = ?, description = ?, goal_id = ?
                         where id = ?
-                    """, task.getDate(), task.getName(), task.getDescription(), task.getId());
+                    """, task.getDate(), task.getName(), task.getDescription(), task.getId(), task.getGoal().getId());
         }
     }
 

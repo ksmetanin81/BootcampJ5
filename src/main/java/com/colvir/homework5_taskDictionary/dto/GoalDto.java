@@ -3,22 +3,20 @@ package com.colvir.homework5_taskDictionary.dto;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class TaskDto {
+public class GoalDto {
 
     @Min(0)
     private Long id;
-    @FutureOrPresent
-    private LocalDate date;
     @NotEmpty
     private String name;
+    private String motivation;
+    private String resources;
+    @FutureOrPresent
+    private LocalDate deadline;
     private String description;
-    @NotNull
-    @Min(0)
-    private Long goalId;
 }
