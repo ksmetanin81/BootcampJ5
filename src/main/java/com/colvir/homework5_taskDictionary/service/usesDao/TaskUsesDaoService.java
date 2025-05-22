@@ -9,6 +9,7 @@ import com.colvir.homework5_taskDictionary.service.GoalService;
 import com.colvir.homework5_taskDictionary.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,32 +40,38 @@ public class TaskUsesDaoService implements TaskService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasks() {
         return taskDao.findAll().stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<TaskDto> getTaskById(Long id) {
         Task task = taskDao.findById(id);
         return task != null ? Optional.of(this.mapDto(task)) : Optional.empty();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasksByDate(LocalDate date) {
         return taskDao.findByDate(date).stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TaskDto> getTasksByGoalId(Long goalId) {
         return taskDao.findByGoalId(goalId).stream().map(this::mapDto).toList();
     }
 
     @Override
+    @Transactional
     public void save(TaskDto taskDto) {
         taskDao.save(mapEntity(taskDto));
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
         return taskDao.delete(id);
     }

@@ -49,6 +49,11 @@ public class TaskController {
         return taskService.getTasksByDate(date);
     }
 
+    @GetMapping("/byGoalId/{goalId}")
+    public List<TaskDto> getTasksByGoalId(@PathVariable Long goalId) {
+        return taskService.getTasksByGoalId(goalId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid TaskDto taskDto) {
@@ -70,6 +75,6 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        return taskService.delete(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return taskService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
