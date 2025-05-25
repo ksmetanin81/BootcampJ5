@@ -1,0 +1,9 @@
+spring:
+  main.banner-mode: off
+  mongodb:
+    uri: mongodb://localhost:27017/taskDictionary
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: com.colvir.mongo
