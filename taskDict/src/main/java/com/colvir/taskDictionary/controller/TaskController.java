@@ -60,9 +60,6 @@ public class TaskController {
         if (taskDto.getId() != null) {
             throw new IllegalArgumentException("Task id should be null");
         }
-        if (taskDto.getDate().isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("Task date must be greater or equal to the current one");
-        }
         taskService.save(taskDto);
     }
 

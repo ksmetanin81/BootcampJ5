@@ -8,5 +8,6 @@
     <include file="tasks-schema.xml" relativeToChangelogFile="true"/>
     <include file="goals-data.xml" relativeToChangelogFile="true"/>
     <include file="tasks-data.xml" relativeToChangelogFile="true"/>
+    <include file="security.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
