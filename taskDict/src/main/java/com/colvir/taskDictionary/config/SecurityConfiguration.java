@@ -3,9 +3,11 @@ package com.colvir.taskDictionary.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,14 +17,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
+    public static final String ADMIN = "ADMIN";
+
     @Bean
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/goals").hasRole("ADMIN")
-                        .requestMatchers("/api/goals/**").hasRole("ADMIN")
-                        .requestMatchers("/api/tasks").authenticated()
-                        .requestMatchers("/api/tasks/**").authenticated()
+                        .requestMatchers(HttpMethod.POST).hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.PUT).hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.DELETE).hasRole(ADMIN)
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
