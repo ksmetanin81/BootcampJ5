@@ -13,5 +13,7 @@
         <module>base</module>
         <module>mongo</module>
         <module>taskDict</module>
+        <module>producer</module>
+        <module>listener</module>
     </modules>
 </project> 

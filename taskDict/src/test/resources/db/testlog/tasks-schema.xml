@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="tasks-schema" author="Konstantin Smetanin">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tasks"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tasks">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tasks_pk"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="goal_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="tasks_goal_fk" references="goals(id)"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="tasks_goal_id_index" tableName="tasks">
+            <column name="goal_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

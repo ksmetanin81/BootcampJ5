@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="goals-data" author="Konstantin Smetanin">
+
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0"><![CDATA[
+                select count(*) from goals
+                where 1 = 1
+                ]]></sqlCheck>
+        </preConditions>
+
+        <insert tableName="goals">
+            <column name="name" value="Освоить курс Bootcamp Java Advanced"/>
+            <column name="motivation" value="Откроются новые возможности в области разработки ПО"/>
+            <column name="resources" value="Время: 4 часа в неделю"/>
+            <column name="deadline" value="2025-07-07"/>
+            <column name="description" value=""/>
+        </insert>
+
+        <insert tableName="goals">
+            <column name="name" value="Захватить мир"/>
+            <column name="motivation" value="Это весело"/>
+            <column name="resources" value="Золото и оружие"/>
+            <column name="deadline" value="2030-01-01"/>
+            <column name="description" value="На пути к цели не привлекать внимание санитаров"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
