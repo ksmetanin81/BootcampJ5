@@ -2,7 +2,6 @@ package com.colvir.taskDictionary.controller;
 
 import com.colvir.taskDictionary.dto.TaskDto;
 import com.colvir.taskDictionary.service.TaskService;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DisplayName("TaskController")
 public class TaskControllerTest {
 
     @Autowired
@@ -37,7 +35,6 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getTasks")
     public void getTasksTest() throws Exception {
         Mockito.when(taskService.getTasks()).thenReturn(List.of(new TaskDto()));
         this.mockMvc.perform(get("/api/tasks"))
@@ -47,7 +44,6 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getTasksToday")
     public void getTasksTodayTest() throws Exception {
         Mockito.when(taskService.getTasksByDate(LocalDate.now())).thenReturn(List.of(new TaskDto()));
         this.mockMvc.perform(get("/api/tasks/today"))
@@ -57,7 +53,6 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getTaskById")
     public void getTaskByIdTest() throws Exception {
         Mockito.when(taskService.getTaskById(1L)).thenReturn(Optional.of(new TaskDto()));
         this.mockMvc.perform(get("/api/tasks/1"))
@@ -67,7 +62,6 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getTasksOnDate")
     public void getTasksOnDateTest() throws Exception {
         Mockito.when(taskService.getTasksByDate(LocalDate.parse("2000-01-01"))).thenReturn(List.of(new TaskDto()));
         this.mockMvc.perform(get("/api/tasks/onDate/2000-01-01"))
@@ -77,7 +71,6 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getTasksByGoalId")
     public void getTasksByGoalIdTest() throws Exception {
         Mockito.when(taskService.getTasksByGoalId(1L)).thenReturn(List.of(new TaskDto()));
         this.mockMvc.perform(get("/api/tasks/byGoalId/1"))
@@ -97,14 +90,12 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("create by admin")
     public void createByAdminTest() throws Exception {
         createTest(status().isCreated());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("create by user")
     public void createByUserTest() throws Exception {
         createTest(status().isForbidden());
     }
@@ -122,14 +113,12 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("update by admin")
     public void updateByAdminTest() throws Exception {
         updateTest(status().isOk());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("update by user")
     public void updateByUserTest() throws Exception {
         updateTest(status().isForbidden());
     }
@@ -143,14 +132,12 @@ public class TaskControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("delete by admin")
     public void deleteByAdminTest() throws Exception {
         deleteTest(status().isNoContent());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("delete by user")
     public void deleteByUserTest() throws Exception {
         deleteTest(status().isForbidden());
     }

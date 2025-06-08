@@ -2,7 +2,6 @@ package com.colvir.taskDictionary.controller;
 
 import com.colvir.taskDictionary.dto.GoalDto;
 import com.colvir.taskDictionary.service.GoalService;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DisplayName("GoalController")
 public class GoalControllerTest {
 
     @Autowired
@@ -36,7 +34,6 @@ public class GoalControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getGoals")
     public void getGoalsTest() throws Exception {
         Mockito.when(goalService.getGoals()).thenReturn(List.of(new GoalDto()));
         this.mockMvc.perform(get("/api/goals"))
@@ -46,7 +43,6 @@ public class GoalControllerTest {
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("getGoalById")
     public void getGoalByIdTest() throws Exception {
         Mockito.when(goalService.getGoalById(1L)).thenReturn(Optional.of(new GoalDto()));
         this.mockMvc.perform(get("/api/goals/1"))
@@ -66,14 +62,12 @@ public class GoalControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("create by admin")
     public void createByAdminTest() throws Exception {
         createTest(status().isCreated());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("create by user")
     public void createByUserTest() throws Exception {
         createTest(status().isForbidden());
     }
@@ -91,14 +85,12 @@ public class GoalControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("update by admin")
     public void updateByAdminTest() throws Exception {
         updateTest(status().isOk());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("update by user")
     public void updateByUserTest() throws Exception {
         updateTest(status().isForbidden());
     }
@@ -112,14 +104,12 @@ public class GoalControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DisplayName("delete by admin")
     public void deleteByAdminTest() throws Exception {
         deleteTest(status().isNoContent());
     }
 
     @Test
     @WithMockUser(username = "user")
-    @DisplayName("delete by user")
     public void deleteByUserTest() throws Exception {
         deleteTest(status().isForbidden());
     }

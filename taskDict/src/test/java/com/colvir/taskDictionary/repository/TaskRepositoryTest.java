@@ -1,7 +1,6 @@
 package com.colvir.taskDictionary.repository;
 
 import com.colvir.taskDictionary.model.Task;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -20,7 +19,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DataJpaTest
 @DirtiesContext(classMode = BEFORE_CLASS)
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@DisplayName("TaskRepository")
 public class TaskRepositoryTest {
 
     @Autowired
@@ -30,7 +28,6 @@ public class TaskRepositoryTest {
     private GoalRepository goalRepository;
 
     @Test
-    @DisplayName("findAll")
     public void findAllTest() {
         List<Task> tasks = taskRepository.findAll();
         assertThat(tasks).isNotNull().hasSize(4)
@@ -40,7 +37,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    @DisplayName("findById")
     public void findByIdTest() {
         Task task = taskRepository.findById(1L).orElse(null);
         assertThat(task).isNotNull()
@@ -48,7 +44,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    @DisplayName("findByDate")
     public void findByDateTest() {
         List<Task> tasks = taskRepository.findByDate(LocalDate.now());
         assertThat(tasks).isNotNull().hasSize(3)
@@ -59,7 +54,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    @DisplayName("findByGoalId")
     public void findByGoalIdTest() {
         List<Task> tasks = taskRepository.findByGoalId(1L);
         assertThat(tasks).isNotNull().hasSize(2)
@@ -69,7 +63,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    @DisplayName("save")
     public void saveTest() {
         Task task = new Task();
         task.setDate(LocalDate.now());
@@ -83,7 +76,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    @DisplayName("delete")
     public void deleteTest() {
         Task task = taskRepository.findById(1L)
                 .orElseThrow(() -> new NoSuchElementException("Task with id = 1 not found"));

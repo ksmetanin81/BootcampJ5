@@ -1,7 +1,6 @@
 package com.colvir.taskDictionary.repository;
 
 import com.colvir.taskDictionary.model.Goal;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -19,14 +18,12 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DataJpaTest
 @DirtiesContext(classMode = BEFORE_CLASS)
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@DisplayName("GoalRepository")
 public class GoalRepositoryTest {
 
     @Autowired
     private GoalRepository goalRepository;
 
     @Test
-    @DisplayName("findAll")
     public void findAllTest() {
         List<Goal> goals = goalRepository.findAll();
         assertThat(goals).isNotNull().hasSize(2)
@@ -35,7 +32,6 @@ public class GoalRepositoryTest {
     }
 
     @Test
-    @DisplayName("findById")
     public void findByIdTest() {
         Goal goal = goalRepository.findById(1L).orElse(null);
         assertThat(goal).isNotNull()
@@ -43,7 +39,6 @@ public class GoalRepositoryTest {
     }
 
     @Test
-    @DisplayName("save")
     public void saveTest() {
         Goal goal = new Goal();
         goal.setName("Test goal");
@@ -54,7 +49,6 @@ public class GoalRepositoryTest {
     }
 
     @Test
-    @DisplayName("delete")
     public void deleteTest() {
         Goal goal = goalRepository.findById(1L).orElseThrow(() -> new NoSuchElementException("Goal with id = 1 not found"));
         goalRepository.deleteById(goal.getId());
