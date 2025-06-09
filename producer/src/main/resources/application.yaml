@@ -1,0 +1,12 @@
+spring:
+  main.banner-mode: off
+
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
