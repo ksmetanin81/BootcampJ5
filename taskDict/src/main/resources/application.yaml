@@ -13,6 +13,11 @@ spring:
   liquibase:
     change-log: 'classpath:db/changelog/changeLog.xml'
 
+  hazelcast:
+    config: classpath:hazelcast-client.yaml
+  cache:
+    type: hazelcast
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

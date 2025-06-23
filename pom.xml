@@ -15,5 +15,6 @@
         <module>taskDict</module>
         <module>producer</module>
         <module>listener</module>
+        <module>shop-cloud</module>
     </modules>
 </project> 

@@ -5,14 +5,12 @@ import com.colvir.taskDictionary.mapper.GoalMapper;
 import com.colvir.taskDictionary.repository.GoalRepository;
 import com.colvir.taskDictionary.service.GoalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Primary
 @Service
 @RequiredArgsConstructor
 public class GoalUsesRepositoryService implements GoalService {
